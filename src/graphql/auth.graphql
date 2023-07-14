@@ -1,0 +1,20 @@
+extend type Mutation {
+    loginUser(
+        email: String!
+        password: String!
+    ): String!
+
+    registerUser(
+        input: RegisterUserInput! @spread
+    ): User! @create(model: "App\\Modules\\User\\Models\\User")
+}
+
+input RegisterUserInput @validator {
+    email: String!
+    password: String!
+}
+
+type Query {
+    me: User @auth
+}
+
