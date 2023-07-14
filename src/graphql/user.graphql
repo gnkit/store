@@ -8,9 +8,9 @@ extend type Query {
 type Mutation {
     upsertUser(
         input: UpsertUserInput! @spread
-    ): User! @upsert(model: "App\\Modules\\User\\Models\\User")
+    ): User
 
-    deleteUser(id: ID! @whereKey): User @delete(model: "App\\Modules\\User\\Models\\User")
+    deleteUser(id: ID! @whereKey): User!
 }
 
 input UpsertUserInput @validator {

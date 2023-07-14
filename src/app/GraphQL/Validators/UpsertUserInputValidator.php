@@ -22,11 +22,17 @@ final class UpsertUserInputValidator extends Validator
             'name' => ['string', 'max:255'],
             'firstname' => ['nullable', 'string', 'max:255'],
             'lastname' => ['nullable', 'string', 'max:255'],
-            'email' => ['sometimes', 'email', 'email:rfc,dns', Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
-            ],
+            'email' => ['unique:users,email','sometimes', 'email', 'email:rfc,dns'],
             'phone' => ['nullable', 'string', 'max:11'],
             'password' => ['sometimes', Password::min(8)->mixedCase()->numbers()->symbols()],
             'status' => ['sometimes', new Enum(UserStatus::class)],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.unique' => 'The chosen email is not available',
         ];
     }
 }
