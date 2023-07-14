@@ -15,6 +15,6 @@ input RegisterUserInput @validator {
 }
 
 type Query {
-    me: User @auth
+    me: User! @guard @auth(model: "App\\Modules\\User\\Models\\User")
 }
 
