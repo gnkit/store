@@ -2,12 +2,11 @@
 
 namespace App\Modules\User\Actions;
 
-use App\Modules\User\DataTransferObjects\UserData;
 use App\Modules\User\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class LoginUserAction
+final class LoginUserAction
 {
     /**
      * @param array $data
@@ -26,6 +25,9 @@ class LoginUserAction
 
         $token = $user->createToken('graphql')->plainTextToken;
 
-        return $token;
+        return [
+            'token' => $token,
+            'user' => $user,
+        ];
     }
 }
