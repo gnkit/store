@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Validators;
+namespace App\GraphQL\Validators\User;
 
 use Illuminate\Validation\Rules\Password;
 use Nuwave\Lighthouse\Validation\Validator;

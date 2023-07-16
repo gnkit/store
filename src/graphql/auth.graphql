@@ -1,20 +1,36 @@
 extend type Mutation {
-    loginUser(
-        email: String!
-        password: String!
-    ): String!
 
-    registerUser(
-        input: RegisterUserInput! @spread
-    ): User! @create(model: "App\\Modules\\User\\Models\\User")
-}
+    loginUser(input: LoginInput @spread): Login! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@login")
 
-input RegisterUserInput @validator {
-    email: String!
-    password: String!
+    registerUser(input: RegisterInput! @spread): Register! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@register")
+
+    logoutUser: Logout! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@logout")
 }
 
 type Query {
     me: User! @guard @auth(model: "App\\Modules\\User\\Models\\User")
 }
 
+input RegisterInput @validator(class: "User\\RegisterUserInputValidator") {
+    email: String!
+    password: String!
+}
+
+input LoginInput {
+    email: String! @rules(apply: ["email"])
+    password: String!
+}
+
+type Login {
+    token: String!
+    user: User!
+}
+
+type Register {
+    user: User!
+}
+
+type Logout {
+    status: String!
+    message: String
+}
