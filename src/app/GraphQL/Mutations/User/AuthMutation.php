@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\User;
 
 use App\Modules\User\Actions\LoginUserAction;
 
