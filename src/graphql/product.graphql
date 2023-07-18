@@ -5,6 +5,8 @@ extend type Query {
     typeById(id: ID @eq): Type @find(model: "App\\Modules\\Product\\Models\\Type")
     discounts: [Discount!]! @paginate(model: "App\\Modules\\Product\\Models\\Discount")
     discountById(id: ID @eq): Discount @find(model: "App\\Modules\\Product\\Models\\Discount")
+    images: [Image!]! @paginate(model: "App\\Modules\\Product\\Models\\Image")
+    imageById(id: ID @eq): Image @find(model: "App\\Modules\\Product\\Models\\Image")
 }
 
 type Product {
@@ -16,21 +18,28 @@ type Product {
     stock: Int
     type: Type @belongsTo(model: "App\\Modules\\Product\\Models\\Type")
     discount: Discount @belongsTo(model: "App\\Modules\\Product\\Models\\Discount")
+    images: [Image] @hasMany(model: "App\\Modules\\Product\\Models\\Image")
 }
 
 type Type {
     id: ID!
-    name: String
+    name: String!
     slug: String
     products: [Product!]! @hasMany(model: "App\\Modules\\Product\\Models\\Product")
 }
 
 type Discount {
     id: ID!
-    name: String
-    value: Int
-    type: String
-    start_date: DateTime
-    expiration_date: DateTime
+    name: String!
+    value: Int!
+    type: String!
+    start_date: DateTime!
+    expiration_date: DateTime!
     products: [Product!]! @hasMany(model: "App\\Modules\\Product\\Models\\Product")
+}
+
+type Image {
+    id: ID!
+    url: String!
+    product: Product! @belongsTo(model: "App\\Modules\\Product\\Models\\Product")
 }
