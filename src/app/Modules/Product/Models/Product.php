@@ -2,7 +2,6 @@
 
 namespace App\Modules\Product\Models;
 
-use Database\Factories\Modules\Product\Models\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,10 +27,10 @@ class Product extends Model
     }
 
     /**
-     * @return ProductFactory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected static function newFactory()
+    public function discount()
     {
-        return ProductFactory::new();
+        return $this->belongsTo(Discount::class, 'id');
     }
 }
