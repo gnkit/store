@@ -1,0 +1,23 @@
+extend type Query {
+    products: [Product!]! @paginate(model: "App\\Modules\\Product\\Models\\Product")
+    productById(id: ID @eq): Product @find(model: "App\\Modules\\Product\\Models\\Product")
+    types: [Type!]! @paginate(model: "App\\Modules\\Product\\Models\\Type")
+    typeById(id: ID @eq): Type @find(model: "App\\Modules\\Product\\Models\\Type")
+}
+
+type Product {
+    id: ID!
+    name: String!
+    description: String
+    sku: String
+    price: Int!
+    stock: Int
+    type: Type! @belongsTo(model: "App\\Modules\\Product\\Models\\Type")
+}
+
+type Type {
+    id: ID!
+    name: String
+    slug: String
+    products: [Product!]! @hasMany(model: "App\\Modules\\Product\\Models\\Product")
+}
