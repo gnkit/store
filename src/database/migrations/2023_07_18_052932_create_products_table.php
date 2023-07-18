@@ -16,7 +16,9 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('sku')->nullable();
             $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('type_id')->references('id')->on('types');
+            $table->foreign('discount_id')->references('id')->on('discounts');
             $table->decimal('price');
             $table->unsignedInteger('stock');
             $table->timestamps();

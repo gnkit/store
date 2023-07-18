@@ -14,8 +14,9 @@ class Product extends Model
         'description',
         'sku',
         'type_id',
+        'discount_id',
         'price',
-        'stock'
+        'stock',
     ];
 
     /**
@@ -23,7 +24,7 @@ class Product extends Model
      */
     public function type()
     {
-        return $this->belongsTo(Type::class, 'type_id');
+        return $this->belongsTo(Type::class, 'id');
     }
 
     /**

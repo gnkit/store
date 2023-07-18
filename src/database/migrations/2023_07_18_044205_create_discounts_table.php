@@ -17,8 +17,6 @@ return new class extends Migration {
             $table->string('type');
             $table->dateTime('start_date');
             $table->dateTime('expiration_date');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

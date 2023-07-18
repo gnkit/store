@@ -15,11 +15,10 @@ class Discount extends Model
         'type',
         'start_date',
         'expiration_date',
-        'product_id'
     ];
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'product_id');
+        return $this->hasMany(Product::class, 'id');
     }
 }

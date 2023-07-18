@@ -27,6 +27,7 @@ class ProductFactory extends Factory
             'description' => fake()->sentence(5),
             'sku' => fake()->ean8(),
             'type_id' => fake()->numberBetween(1, 10),
+            'discount_id' => fake()->numberBetween(1, 5),
             'price' => fake()->numberBetween(1000, 20000),
             'stock' => fake()->numberBetween(1, 20),
         ];

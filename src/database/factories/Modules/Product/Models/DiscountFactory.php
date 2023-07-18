@@ -29,7 +29,6 @@ class DiscountFactory extends Factory
             'type' => fake()->randomElement(DiscountType::cases()),
             'start_date' => fake()->dateTimeBetween('-2 week', '-1 week'),
             'expiration_date' => fake()->dateTimeBetween('+1 week', '+4 week'),
-            'product_id' => fake()->numberBetween(1, 5),
         ];
     }
 }
