@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\User\Actions;
+namespace App\Modules\User\Actions\Auth;
 
-use App\Modules\User\Models\User;
 use App\Modules\User\DataTransferObjects\RegisterUserData;
+use App\Modules\User\Models\User;
 
 final class RegisterUserAction
 {

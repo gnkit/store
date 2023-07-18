@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Mutations\User;
 
-use App\Modules\User\Actions\LoginUserAction;
-use App\Modules\User\Actions\LogoutUserAction;
-use App\Modules\User\Actions\RegisterUserAction;
+use App\Modules\User\Actions\Auth\LoginUserAction;
+use App\Modules\User\Actions\Auth\LogoutUserAction;
+use App\Modules\User\Actions\Auth\RegisterUserAction;
 
 final class AuthMutation
 {
