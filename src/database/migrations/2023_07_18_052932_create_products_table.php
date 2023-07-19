@@ -15,10 +15,10 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('sku')->nullable();
-            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('type_id')->nullable();
             $table->unsignedBigInteger('discount_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('discount_id')->references('id')->on('discounts');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
+            $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
             $table->decimal('price');
             $table->unsignedInteger('stock');
             $table->timestamps();
