@@ -27,7 +27,7 @@ class Product extends Model
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(Type::class, 'id');
+        return $this->belongsTo(Type::class, 'type_id');
     }
 
     /**
@@ -35,7 +35,7 @@ class Product extends Model
      */
     public function discount(): BelongsTo
     {
-        return $this->belongsTo(Discount::class, 'id');
+        return $this->belongsTo(Discount::class, 'discount_id');
     }
 
     /**

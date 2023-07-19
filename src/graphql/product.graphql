@@ -11,6 +11,11 @@ extend type Query {
     categoryById(id: ID @eq): Category @find(model: "App\\Modules\\Product\\Models\\Category")
 }
 
+extend type Mutation {
+    productUpsert(input: ProductUpsertInput @spread): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@upsert")
+    productDelete(id: ID! @wherekey): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@destroy")
+}
+
 type Product {
     id: ID!
     name: String!
@@ -54,4 +59,15 @@ type Category {
     parent: Category @belongsTo(model: "App\\Modules\\Product\\Models\\Category")
     children: [Category] @hasMany(model: "App\\Modules\\Product\\Models\\Category")
     products: [Product] @belongsToMany(model: "App\\Modules\\Product\\Models\\Product")
+}
+
+input ProductUpsertInput {
+    id: ID
+    name: String!
+    description: String
+    sku: String
+    type_id: Int!
+    discount_id: Int
+    price: Int!
+    stock: Int!
 }
