@@ -1,10 +1,7 @@
 extend type Mutation {
-
-    loginUser(input: LoginInput @spread): Login! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@login")
-
-    registerUser(input: RegisterInput! @spread): Register! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@register")
-
-    logoutUser: Logout! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@logout")
+    authLogin(input: LoginInput @spread): Login! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@login")
+    authRegister(input: RegisterInput! @spread): Register! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@register")
+    authLogout: Logout! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@logout")
 }
 
 type Query {
