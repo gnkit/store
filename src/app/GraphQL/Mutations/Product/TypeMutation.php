@@ -2,15 +2,15 @@
 
 namespace App\GraphQL\Mutations\Product;
 
-use App\Modules\Product\Actions\Product\DestroyTypeAction;
-use App\Modules\Product\Actions\Product\UpsertTypeAction;
+use App\Modules\Product\Actions\Type\DestroyTypeAction;
+use App\Modules\Product\Actions\Type\UpsertTypeAction;
 
-final class ProductMutation
+final class TypeMutation
 {
     /**
      * @param $_
      * @param array $args
-     * @return \App\Modules\Product\Models\Product
+     * @return \App\Modules\Product\Models\Type
      */
     public function upsert($_, array $args)
     {
@@ -20,7 +20,7 @@ final class ProductMutation
     /**
      * @param $_
      * @param array $args
-     * @return \App\Modules\Product\Models\Product
+     * @return \App\Modules\Product\Models\Type
      */
     public function destroy($_, array $args)
     {

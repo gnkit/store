@@ -5,8 +5,18 @@ namespace App\Modules\User\DataTransferObjects;
 use App\Modules\User\Enums\UserStatus;
 use Spatie\LaravelData\Data;
 
-class UserData extends Data
+final class UserData extends Data
 {
+    /**
+     * @param int|null $id
+     * @param string $name
+     * @param string $firstname
+     * @param string $lastname
+     * @param string $email
+     * @param string $phone
+     * @param string|null $password
+     * @param UserStatus $status
+     */
     public function __construct(
         public readonly ?int       $id,
         public readonly string     $name,

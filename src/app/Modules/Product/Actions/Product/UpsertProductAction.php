@@ -5,7 +5,7 @@ namespace App\Modules\Product\Actions\Product;
 use App\Modules\Product\DataTransferObjects\ProductData;
 use App\Modules\Product\Models\Product;
 
-class UpsertProductAction
+final class UpsertProductAction
 {
     /**
      * @param array $args

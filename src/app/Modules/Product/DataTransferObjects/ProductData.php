@@ -4,7 +4,7 @@ namespace App\Modules\Product\DataTransferObjects;
 
 use Spatie\LaravelData\Data;
 
-class ProductData extends Data
+final class ProductData extends Data
 {
     /**
      * @param int|null $id

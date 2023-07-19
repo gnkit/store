@@ -14,6 +14,8 @@ extend type Query {
 extend type Mutation {
     productUpsert(input: ProductUpsertInput @spread): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@upsert")
     productDelete(id: ID! @wherekey): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@destroy")
+    typeUpsert(input: TypeUpsertInput @spread): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@upsert")
+    typeDelete(id: ID! @wherekey): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@destroy")
 }
 
 type Product {
@@ -70,4 +72,9 @@ input ProductUpsertInput {
     discount_id: Int
     price: Int!
     stock: Int!
+}
+
+input TypeUpsertInput {
+    id: ID
+    name: String!
 }

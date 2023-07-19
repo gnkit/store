@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Request;
 use Spatie\LaravelData\Data;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterUserData extends Data
+final class RegisterUserData extends Data
 {
     /**
      * @param string $email
-     * @param string|null $password
+     * @param string $password
      */
     public function __construct(
         public readonly string $email,

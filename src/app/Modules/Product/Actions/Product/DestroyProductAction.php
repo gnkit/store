@@ -4,7 +4,7 @@ namespace App\Modules\Product\Actions\Product;
 
 use App\Modules\Product\Models\Product;
 
-class DestroyProductAction
+final class DestroyProductAction
 {
     /**
      * @param array $args
