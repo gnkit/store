@@ -13,7 +13,7 @@ final class UpsertDiscountAction
      */
     public static function execute(array $args): Discount
     {
-        $data = DiscountData::from($args);
+        $data = DiscountData::validateAndCreate($args);
 
         $discount = Discount::updateOrCreate(
             [

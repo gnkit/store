@@ -14,7 +14,7 @@ final class UpsertTypeAction
      */
     public static function execute(array $args): Type
     {
-        $data = TypeData::from($args);
+        $data = TypeData::validateAndCreate($args);
 
         $type = Type::updateOrCreate(
             [
