@@ -12,7 +12,8 @@ final class DestroyProductAction
      */
     public static function execute(array $args): Product
     {
-        $product = Product::find($args['id']);
+        $product = GetByIdProductAction::execute($args['id']);
+        $product->categories()->detach();
         $product->delete();
 
         return $product;
