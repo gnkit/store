@@ -21,6 +21,8 @@ extend type Mutation {
     typeDelete(id: ID! @wherekey): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@destroy")
     discountUpsert(input: DiscountUpsertInput @spread): Discount! @field(resolver: "App\\GraphQL\\Mutations\\Product\\DiscountMutation@upsert")
     discountDelete(id: ID! @wherekey): Discount! @field(resolver: "App\\GraphQL\\Mutations\\Product\\DiscountMutation@destroy")
+    categoryUpsert(input: CategoryUpsertInput @spread): Category! @field(resolver: "App\\GraphQL\\Mutations\\Product\\CategoryMutation@upsert")
+    categoryDelete(id: ID! @wherekey): Category! @field(resolver: "App\\GraphQL\\Mutations\\Product\\CategoryMutation@destroy")
 }
 
 type Product {
@@ -77,6 +79,7 @@ input ProductUpsertInput {
     discount_id: Int
     price: Int!
     stock: Int!
+    category: Int!
 }
 
 input TypeUpsertInput {
@@ -97,4 +100,10 @@ enum DiscountType {
     NEW @enum(value: "new")
     SALE @enum(value: "sale")
     LIMIT @enum(value: "limit")
+}
+
+input CategoryUpsertInput {
+    id: ID
+    name: String!
+    parent_id: Int
 }

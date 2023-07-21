@@ -2,6 +2,7 @@
 
 namespace App\Modules\Product\Actions\Product;
 
+use App\Modules\Product\Actions\Category\GetByIdCategoryAction;
 use App\Modules\Product\DataTransferObjects\ProductData;
 use App\Modules\Product\Models\Product;
 
@@ -14,6 +15,7 @@ final class UpsertProductAction
     public static function execute(array $args): Product
     {
         $data = ProductData::validateAndCreate($args);
+        $category = GetByIdCategoryAction::execute($args['category']);
 
         $product = Product::updateOrCreate(
             [
@@ -29,6 +31,7 @@ final class UpsertProductAction
                 'stock' => $data->stock,
             ],
         );
+        $product->categories()->sync($category);
 
         return $product;
     }
