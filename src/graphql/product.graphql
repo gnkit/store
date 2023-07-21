@@ -29,7 +29,7 @@ type Product {
     description: String
     sku: String
     price: Int!
-    stock: Int
+    stock: Int!
     type: Type @belongsTo(model: "App\\Modules\\Product\\Models\\Type")
     discount: Discount @belongsTo(model: "App\\Modules\\Product\\Models\\Discount")
     images: [Image] @hasMany(model: "App\\Modules\\Product\\Models\\Image")
@@ -73,7 +73,7 @@ input ProductUpsertInput {
     name: String!
     description: String
     sku: String
-    type_id: Int!
+    type_id: Int
     discount_id: Int
     price: Int!
     stock: Int!

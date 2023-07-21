@@ -13,7 +13,7 @@ final class UpsertProductAction
      */
     public static function execute(array $args): Product
     {
-        $data = ProductData::from($args);
+        $data = ProductData::validateAndCreate($args);
 
         $product = Product::updateOrCreate(
             [

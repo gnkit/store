@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations\Product;
 
-use App\Modules\Product\Actions\Product\DestroyTypeAction;
-use App\Modules\Product\Actions\Product\UpsertTypeAction;
+use App\Modules\Product\Actions\Product\DestroyProductAction;
+use App\Modules\Product\Actions\Product\UpsertProductAction;
 
 final class ProductMutation
 {
@@ -14,7 +14,7 @@ final class ProductMutation
      */
     public function upsert($_, array $args)
     {
-        return UpsertTypeAction::execute($args);
+        return UpsertProductAction::execute($args);
     }
 
     /**
@@ -24,7 +24,7 @@ final class ProductMutation
      */
     public function destroy($_, array $args)
     {
-        return DestroyTypeAction::execute($args);
+        return DestroyProductAction::execute($args);
     }
 
 }
