@@ -2,8 +2,6 @@
 
 namespace App\Modules\Product\Services\Image;
 
-use Illuminate\Support\Facades\Storage;
-
 final class ImageUploadProductService
 {
     /**
@@ -62,5 +60,4 @@ final class ImageUploadProductService
 
         return $name;
     }
-
 }

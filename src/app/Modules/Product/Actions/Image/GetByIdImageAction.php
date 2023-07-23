@@ -16,5 +16,4 @@ class GetByIdImageAction
 
         return $image;
     }
-
 }
