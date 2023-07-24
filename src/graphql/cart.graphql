@@ -1,0 +1,17 @@
+extend type Mutation {
+    cartUpsert(input: CartUpsertInput @spread): Cart! @field(resolver: "App\\GraphQL\\Mutations\\Cart\\CartMutation@upsert") @guard
+}
+
+type Cart {
+    id: ID!
+    session_id: String!
+    products: [Product!]! @hasMany(model: "App\\Modules\\Product\\Models\\Product")
+}
+
+input CartUpsertInput {
+    id: ID
+    session_id: String
+    user_id: Int!
+    product_id: Int! @rules(apply: ["exists:products,id"])
+    quantity: Int!
+}

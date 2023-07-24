@@ -2,6 +2,7 @@
 
 namespace App\Modules\Product\Models;
 
+use App\Modules\Cart\Models\Cart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -52,5 +53,13 @@ class Product extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'categories_products', 'product_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function carts(): BelongsToMany
+    {
+        return $this->belongsToMany(Cart::class, 'carts_products', 'product_id');
     }
 }
