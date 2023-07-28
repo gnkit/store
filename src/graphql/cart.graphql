@@ -1,5 +1,6 @@
 extend type Mutation {
     cartUpsert(input: CartUpsertInput @spread): Cart! @field(resolver: "App\\GraphQL\\Mutations\\Cart\\CartMutation@upsert") @guard
+    cartDelete(session_id: String! @wherekey): Cart! @field(resolver: "App\\GraphQL\\Mutations\\Cart\\CartMutation@destroy") @guard
 }
 
 type Cart {
@@ -12,6 +13,10 @@ input CartUpsertInput {
     id: ID
     session_id: String
     user_id: Int!
-    product_id: Int! @rules(apply: ["exists:products,id"])
+    products: [ProductCart]
+}
+
+input ProductCart {
+    id: ID! @rules(apply: ["exists:products,id"])
     quantity: Int!
 }

@@ -15,8 +15,10 @@ final class UpsertCartAction
     public static function execute(array $args): Cart
     {
         $data = CartData::validateAndCreate($args);
-        $product = GetByIdProductAction::execute($args['product_id']);
-        $cart = Cart::where('session_id', $args['session_id'])->first();
+
+        if (!empty($args['session_id'])) {
+            $cart = GetBySessionIdCartAction::execute($args['session_id']);
+        }
 
         $cart = Cart::updateOrCreate(
             [
@@ -28,10 +30,24 @@ final class UpsertCartAction
             ],
         );
 
-        if ($cart->products->contains($product)) {
-            $cart->products()->updateExistingPivot($product, ['quantity' => $args['quantity']]);
-        } else {
-            $cart->products()->attach($product, ['quantity' => $args['quantity']]);
+        $argsProducts = [];
+        foreach ($args['products'] as $product) {
+            $argsProducts[$product['id']] = $product;
+        }
+
+        foreach ($cart->products as $cartProduct) {
+            if (!array_key_exists($cartProduct->id, $argsProducts)) {
+                $cart->products()->detach($cartProduct->id);
+            }
+        }
+
+        foreach ($args['products'] as $product) {
+            $productModel = GetByIdProductAction::execute($product['id']);
+            if ($cart->products->contains($productModel)) {
+                $cart->products()->updateExistingPivot($productModel, ['quantity' => $product['quantity']]);
+            } else {
+                $cart->products()->attach($productModel, ['quantity' => $product['quantity']]);
+            }
         }
 
         return $cart;

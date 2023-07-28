@@ -12,7 +12,7 @@ final class DestroyCartAction
      */
     public static function execute(array $args): Cart
     {
-        $cart = GetByIdCartAction::execute($args['id']);
+        $cart = GetBySessionIdCartAction::execute($args['session_id']);
         $cart->products()->detach();
         $cart->delete();
 
