@@ -1,8 +1,8 @@
 extend type Query {
-    payments: [Payment!]! @paginate(model: "App\\Modules\\Order\\Models\\Payment")
-    paymentById(id: ID @eq): Payment @find(model: "App\\Modules\\Order\\Models\\Payment")
-    orders: [Order!]! @paginate(model: "App\\Modules\\Order\\Models\\Order")
-    orderById(id: ID @eq): Order @find(model: "App\\Modules\\Order\\Models\\Order")
+    payments: [Payment!]! @paginate(model: "App\\Modules\\Order\\Models\\Payment") @guard
+    paymentById(id: ID @eq): Payment @find(model: "App\\Modules\\Order\\Models\\Payment") @guard
+    orders: [Order!]! @paginate(model: "App\\Modules\\Order\\Models\\Order") @guard
+    orderById(id: ID @eq): Order @find(model: "App\\Modules\\Order\\Models\\Order") @guard
 }
 
 extend type Mutation {

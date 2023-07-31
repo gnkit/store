@@ -1,3 +1,8 @@
+extend type Query {
+    carts: [Cart!]! @paginate(model: "App\\Modules\\Cart\\Models\\Cart") @guard
+    cartById(id: ID @eq): Cart @find(model: "App\\Modules\\Cart\\Models\\Cart") @guard
+}
+
 extend type Mutation {
     cartUpsert(input: CartUpsertInput @spread): Cart! @field(resolver: "App\\GraphQL\\Mutations\\Cart\\CartMutation@upsert") @guard
     cartDelete(session_id: String! @wherekey): Cart! @field(resolver: "App\\GraphQL\\Mutations\\Cart\\CartMutation@destroy") @guard
