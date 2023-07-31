@@ -1,0 +1,88 @@
+extend type Query {
+    payments: [Payment!]! @paginate(model: "App\\Modules\\Order\\Models\\Payment")
+    paymentById(id: ID @eq): Payment @find(model: "App\\Modules\\Order\\Models\\Payment")
+    orders: [Order!]! @paginate(model: "App\\Modules\\Order\\Models\\Order")
+    orderById(id: ID @eq): Order @find(model: "App\\Modules\\Order\\Models\\Order")
+}
+
+extend type Mutation {
+    paymentUpsert(input: PaymentUpsertInput @spread): Payment! @field(resolver: "App\\GraphQL\\Mutations\\Order\\PaymentMutation@upsert") @guard
+    paymentDelete(id: ID! @wherekey): Payment! @field(resolver: "App\\GraphQL\\Mutations\\Order\\PaymentMutation@destroy") @guard
+    paymentUpdateStatus(input: PaymentUpdateStatus @spread): Payment! @field(resolver: "App\\GraphQL\\Mutations\\Order\\PaymentMutation@updateStatus") @guard
+    orderUpsert(input: OrderUpsertInput @spread): Order! @field(resolver: "App\\GraphQL\\Mutations\\Order\\OrderMutation@upsert") @guard
+    orderDelete(id: ID! @wherekey): Order! @field(resolver: "App\\GraphQL\\Mutations\\Order\\OrderMutation@destroy") @guard
+}
+
+type Order {
+    id: ID!
+    status: String!
+    delivery_type: String!
+    total_discount: Int
+    total: Int
+    comment: String
+    user: User! @belongsTo(model: "App\\Modules\\User\\Models\\User")
+    payments: [Payment!]! @belongsToMany(model: "App\\Modules\\Order\\Models\\Payment")
+    products: [Product!]! @hasMany(model: "App\\Modules\\Product\\Models\\Product")
+}
+
+type Payment {
+    id: ID!
+    name: String
+    type: String
+}
+
+input OrderUpsertInput {
+    id: ID
+    status: OrderStatus!
+    delivery_type: DeliveryType!
+    comment: String
+    user_id: Int!
+    payments: [PaymentOrder]!
+    products: [ProductOrder]!
+}
+
+input PaymentUpsertInput {
+    id: ID
+    name: String!
+    type: PaymentType!
+}
+
+input PaymentUpdateStatus {
+    order_id: Int!
+    payment_id: Int!
+    status: PaymentStatus!
+}
+
+input ProductOrder {
+    id: ID! @rules(apply: ["exists:products,id"])
+    quantity: Int!
+}
+
+input PaymentOrder {
+    id: ID! @rules(apply: ["exists:payments,id"])
+    status: PaymentStatus!
+}
+
+enum OrderStatus {
+    OPEN @enum(value: "open")
+    CONFIRMED @enum(value: "confirmed")
+    CANCELED @enum(value: "canceled")
+    COMPLETED @enum(value: "completed")
+}
+
+enum DeliveryType {
+    EXPRESS @enum(value: "express")
+    SELF @enum(value: "self")
+}
+
+enum PaymentType {
+    CASH @enum(value: "cash")
+    CARD @enum(value: "card")
+    QR @enum(value: "qr")
+}
+
+enum PaymentStatus {
+    PAID @enum(value: "paid")
+    UNPAID @enum(value: "unpaid")
+    FAILED @enum(value: "failed")
+}

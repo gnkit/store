@@ -3,6 +3,7 @@
 namespace App\Modules\Product\Models;
 
 use App\Modules\Cart\Models\Cart;
+use App\Modules\Order\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -61,5 +62,13 @@ class Product extends Model
     public function carts(): BelongsToMany
     {
         return $this->belongsToMany(Cart::class, 'carts_products', 'product_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'orders_products', 'product_id');
     }
 }
