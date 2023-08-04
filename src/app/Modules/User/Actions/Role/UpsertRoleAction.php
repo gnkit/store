@@ -4,6 +4,7 @@ namespace App\Modules\User\Actions\Role;
 
 use App\Modules\User\DataTransferObjects\RoleData;
 use App\Modules\User\Models\Role;
+use App\Modules\User\Services\User\UserService;
 use Illuminate\Support\Str;
 
 final class UpsertRoleAction
@@ -25,13 +26,7 @@ final class UpsertRoleAction
             ],
         );
 
-        $permissions = [];
-        foreach ($args['permissions'] as $permission) {
-            $permissions[$permission['id']] = $permission;
-        }
-
-        $permissions = array_keys($permissions);
-        $role->permissions()->sync($permissions);
+        (new UserService())->syncPivotWithoutParams($role, $args['permissions'], 'permissions');
 
         return $role;
     }

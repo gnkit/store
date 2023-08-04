@@ -10,26 +10,24 @@ extend type Query {
 }
 
 type Mutation {
-    upsertUser(
-        input: UpsertUserInput! @spread
-    ): User
-
-    deleteUser(id: ID! @whereKey): User!
+    userUpsert(input: UserUpsertInput! @spread): User! @field(resolver: "App\\GraphQL\\Mutations\\User\\UserMutation@upsert")
+    userDelete(id: ID! @whereKey): User! @field(resolver: "App\\GraphQL\\Mutations\\User\\UserMutation@destroy")
     permissionUpsert(input: PermissionUpsertInput @spread): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@upsert")
     permissionDelete(id: ID! @wherekey): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@destroy")
     roleUpsert(input: RoleUpsertInput @spread): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@upsert")
     roleDelete(id: ID! @wherekey): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@destroy")
 }
 
-input UpsertUserInput @validator {
+input UserUpsertInput @validator(class: "User\\UserUpsertInputValidator") {
     id: ID
-    name: String
+    name: String!
     firstname: String
     lastname: String
-    email: String
+    email: String!
     phone: String
     password: String
-    status: String
+    status: UserStatus!
+    roles: [RoleUser]
 }
 
 input PermissionUpsertInput {
@@ -47,6 +45,10 @@ input PermissionRole {
     id: ID! @rules(apply: ["exists:permissions,id"])
 }
 
+input RoleUser {
+    id: ID! @rules(apply: ["exists:roles,id"])
+}
+
 type User {
     id: ID!
     name: String
@@ -58,6 +60,7 @@ type User {
     email_verified_at: DateTime
     created_at: DateTime!
     updated_at: DateTime!
+    roles: [Role!]! @hasMany(model: "App\\Modules\\User\\Models\\Role")
 }
 
 type Permission {
@@ -72,4 +75,9 @@ type Role {
     name: String!
     slug: String
     permissions: [Permission!]! @hasMany(model: "App\\Modules\\User\\Models\\Permission")
+}
+
+enum UserStatus {
+    BAN @enum(value: "ban")
+    ACTIVE @enum(value: "active")
 }

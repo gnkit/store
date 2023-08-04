@@ -21,4 +21,12 @@ class Role extends Model
     {
         return $this->belongsToMany(Permission::class, 'permissions_roles', 'role_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'roles_users', 'role_id');
+    }
 }

@@ -3,11 +3,7 @@
 namespace App\Modules\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Modules\Order\Models\Order;
-use App\Modules\User\Enums\UserStatus;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,8 +48,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected static function newFactory()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
     {
-        return UserFactory::new();
+        return $this->belongsToMany(Role::class, 'roles_users', 'user_id');
     }
 }
