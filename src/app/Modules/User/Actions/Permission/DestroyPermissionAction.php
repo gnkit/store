@@ -13,6 +13,7 @@ final class DestroyPermissionAction
     public static function execute(array $args): Permission
     {
         $permission = GetByIdPermissionAction::execute($args['id']);
+        $permission->roles()->detach();
         $permission->delete();
 
         return $permission;

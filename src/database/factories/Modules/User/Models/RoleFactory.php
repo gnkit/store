@@ -2,19 +2,19 @@
 
 namespace Database\Factories\Modules\User\Models;
 
-use App\Modules\User\Models\Permission;
+use App\Modules\User\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Modules\User\Models\Permission>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Modules\User\Models\Role>
  */
-class PermissionFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Permission::class;
+    protected $model = Role::class;
 
     /**
      * Define the model's default state.
@@ -23,7 +23,7 @@ class PermissionFactory extends Factory
      */
     public function definition(): array
     {
-        $name = 'Permission ' . fake()->word();
+        $name = 'Role ' . fake()->word();
         return [
             'name' => $name,
             'slug' => Str::slug($name),

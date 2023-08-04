@@ -5,6 +5,8 @@ extend type Query {
     userById(id: ID @eq): User @find(model: "App\\Modules\\User\\Models\\User")
     permissions: [Permission!]! @paginate(model: "App\\Modules\\User\\Models\\Permission")
     permissionById(id: ID @eq): Permission @find(model: "App\\Modules\\User\\Models\\Permission")
+    roles: [Role!]! @paginate(model: "App\\Modules\\User\\Models\\Role")
+    roleById(id: ID @eq): Role @find(model: "App\\Modules\\User\\Models\\Role")
 }
 
 type Mutation {
@@ -15,6 +17,8 @@ type Mutation {
     deleteUser(id: ID! @whereKey): User!
     permissionUpsert(input: PermissionUpsertInput @spread): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@upsert")
     permissionDelete(id: ID! @wherekey): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@destroy")
+    roleUpsert(input: RoleUpsertInput @spread): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@upsert")
+    roleDelete(id: ID! @wherekey): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@destroy")
 }
 
 input UpsertUserInput @validator {
@@ -31,6 +35,16 @@ input UpsertUserInput @validator {
 input PermissionUpsertInput {
     id: ID
     name: String
+}
+
+input RoleUpsertInput {
+    id: ID
+    name: String
+    permissions: [PermissionRole]
+}
+
+input PermissionRole {
+    id: ID! @rules(apply: ["exists:permissions,id"])
 }
 
 type User {
@@ -50,4 +64,12 @@ type Permission {
     id: ID!
     name: String!
     slug: String
+    roles: [Role!]! @hasMany(model: "App\\Modules\\User\\Models\\Role")
+}
+
+type Role {
+    id: ID!
+    name: String!
+    slug: String
+    permissions: [Permission!]! @hasMany(model: "App\\Modules\\User\\Models\\Permission")
 }
