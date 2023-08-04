@@ -2,9 +2,8 @@
 
 namespace App\Modules\User\DataTransferObjects;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rules\Password;
 use Spatie\LaravelData\Data;
-use Illuminate\Support\Facades\Hash;
 
 final class RegisterUserData extends Data
 {
@@ -20,14 +19,13 @@ final class RegisterUserData extends Data
     }
 
     /**
-     * @param Request $request
-     * @return self
+     * @return array
      */
-    public static function fromRequest(Request $request): self
+    public static function rules(): array
     {
-        return self::from([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        return [
+            'email' => ['required', 'email', 'email:rfc,dns', 'unique:users,email'],
+            'password' => ['required', Password::min(8)->mixedCase()->numbers()->symbols()],
+        ];
     }
 }

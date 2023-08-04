@@ -1,21 +1,21 @@
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 extend type Query {
-    users: [User!]! @paginate(model: "App\\Modules\\User\\Models\\User")
-    userById(id: ID @eq): User @find(model: "App\\Modules\\User\\Models\\User")
-    permissions: [Permission!]! @paginate(model: "App\\Modules\\User\\Models\\Permission")
-    permissionById(id: ID @eq): Permission @find(model: "App\\Modules\\User\\Models\\Permission")
-    roles: [Role!]! @paginate(model: "App\\Modules\\User\\Models\\Role")
-    roleById(id: ID @eq): Role @find(model: "App\\Modules\\User\\Models\\Role")
+    users: [User!]! @paginate(model: "App\\Modules\\User\\Models\\User") @guard
+    userById(id: ID @eq): User @find(model: "App\\Modules\\User\\Models\\User") @guard
+    permissions: [Permission!]! @paginate(model: "App\\Modules\\User\\Models\\Permission") @guard
+    permissionById(id: ID @eq): Permission @find(model: "App\\Modules\\User\\Models\\Permission") @guard
+    roles: [Role!]! @paginate(model: "App\\Modules\\User\\Models\\Role") @guard
+    roleById(id: ID @eq): Role @find(model: "App\\Modules\\User\\Models\\Role") @guard
 }
 
 type Mutation {
-    userUpsert(input: UserUpsertInput! @spread): User! @field(resolver: "App\\GraphQL\\Mutations\\User\\UserMutation@upsert")
-    userDelete(id: ID! @whereKey): User! @field(resolver: "App\\GraphQL\\Mutations\\User\\UserMutation@destroy")
-    permissionUpsert(input: PermissionUpsertInput @spread): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@upsert")
-    permissionDelete(id: ID! @wherekey): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@destroy")
-    roleUpsert(input: RoleUpsertInput @spread): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@upsert")
-    roleDelete(id: ID! @wherekey): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@destroy")
+    userUpsert(input: UserUpsertInput! @spread): User! @field(resolver: "App\\GraphQL\\Mutations\\User\\UserMutation@upsert") @guard
+    userDelete(id: ID! @whereKey): User! @field(resolver: "App\\GraphQL\\Mutations\\User\\UserMutation@destroy") @guard
+    permissionUpsert(input: PermissionUpsertInput @spread): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@upsert") @guard
+    permissionDelete(id: ID! @wherekey): Permission! @field(resolver: "App\\GraphQL\\Mutations\\User\\PermissionMutation@destroy") @guard
+    roleUpsert(input: RoleUpsertInput @spread): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@upsert") @guard
+    roleDelete(id: ID! @wherekey): Role! @field(resolver: "App\\GraphQL\\Mutations\\User\\RoleMutation@destroy") @guard
 }
 
 input UserUpsertInput @validator(class: "User\\UserUpsertInputValidator") {

@@ -18,16 +18,16 @@ extend type Query {
 }
 
 extend type Mutation {
-    productUpsert(input: ProductUpsertInput @spread): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@upsert")
-    productDelete(id: ID! @wherekey): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@destroy")
-    typeUpsert(input: TypeUpsertInput @spread): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@upsert")
-    typeDelete(id: ID! @wherekey): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@destroy")
-    discountUpsert(input: DiscountUpsertInput @spread): Discount! @field(resolver: "App\\GraphQL\\Mutations\\Product\\DiscountMutation@upsert")
-    discountDelete(id: ID! @wherekey): Discount! @field(resolver: "App\\GraphQL\\Mutations\\Product\\DiscountMutation@destroy")
-    imageUpsert(url: Upload!, product_id: Int!): Image! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ImageMutation@upsert")
-    imageDelete(id: ID! @wherekey): Image! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ImageMutation@destroy")
-    categoryUpsert(input: CategoryUpsertInput @spread): Category! @field(resolver: "App\\GraphQL\\Mutations\\Product\\CategoryMutation@upsert")
-    categoryDelete(id: ID! @wherekey): Category! @field(resolver: "App\\GraphQL\\Mutations\\Product\\CategoryMutation@destroy")
+    productUpsert(input: ProductUpsertInput @spread): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@upsert") @guard
+    productDelete(id: ID! @wherekey): Product! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ProductMutation@destroy") @guard
+    typeUpsert(input: TypeUpsertInput @spread): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@upsert") @guard
+    typeDelete(id: ID! @wherekey): Type! @field(resolver: "App\\GraphQL\\Mutations\\Product\\TypeMutation@destroy") @guard
+    discountUpsert(input: DiscountUpsertInput @spread): Discount! @field(resolver: "App\\GraphQL\\Mutations\\Product\\DiscountMutation@upsert") @guard
+    discountDelete(id: ID! @wherekey): Discount! @field(resolver: "App\\GraphQL\\Mutations\\Product\\DiscountMutation@destroy") @guard
+    imageUpsert(url: Upload!, product_id: Int!): Image! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ImageMutation@upsert") @guard
+    imageDelete(id: ID! @wherekey): Image! @field(resolver: "App\\GraphQL\\Mutations\\Product\\ImageMutation@destroy") @guard
+    categoryUpsert(input: CategoryUpsertInput @spread): Category! @field(resolver: "App\\GraphQL\\Mutations\\Product\\CategoryMutation@upsert") @guard
+    categoryDelete(id: ID! @wherekey): Category! @field(resolver: "App\\GraphQL\\Mutations\\Product\\CategoryMutation@destroy") @guard
 }
 
 type Product {

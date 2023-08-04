@@ -1,14 +1,14 @@
 extend type Mutation {
     authLogin(input: LoginInput @spread): Login! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@login")
     authRegister(input: RegisterInput! @spread): Register! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@register")
-    authLogout: Logout! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@logout")
+    authLogout: Logout! @field(resolver: "App\\GraphQL\\Mutations\\User\\AuthMutation@logout") @guard
 }
 
 type Query {
     me: User! @guard @auth(model: "App\\Modules\\User\\Models\\User")
 }
 
-input RegisterInput @validator(class: "User\\RegisterUserInputValidator") {
+input RegisterInput {
     email: String!
     password: String!
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Modules\User\Models;
 
 use App\Modules\User\Enums\UserStatus;
 use App\Modules\User\Models\User;
@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+    /**
+     * @var string
+     */
     protected $model = User::class;
 
     /**
