@@ -2,8 +2,6 @@
 
 namespace App\Modules\User\DataTransferObjects;
 
-
-use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
 final class PermissionData extends Data
@@ -27,7 +25,7 @@ final class PermissionData extends Data
     public static function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique('permissions')->ignore(request('permission'))],
+            'name' => ['required', 'string', 'max:255'],
         ];
     }
 
