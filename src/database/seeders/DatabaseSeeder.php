@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PaymentSeeder::class,
             OrderSeeder::class,
+            PermissionSeeder::class,
         ]);
     }
 }
